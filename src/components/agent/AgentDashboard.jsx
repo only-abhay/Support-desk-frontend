@@ -119,16 +119,16 @@ export default function AgentDashboard() {
         subtitle={`${counts.Open} open — ${counts["In Progress"]} in progress`}
       />
 
-      <div className="flex-1 overflow-y-auto p-8">
-        <div className="flex gap-2 mb-5 flex-wrap">
+      <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+        <div className="mb-5 flex flex-wrap gap-2">
           {FILTERS.map(({ value, label }) => (
             <button
               key={value}
               type="button"
               onClick={() => setSelectedFilter(value)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
+              className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors ${
                 selectedFilter === value
-                  ? "bg-indigo-600 text-white border-indigo-600"
+                  ? "border-indigo-600 bg-indigo-600 text-white"
                   : "border-slate-300 text-slate-600 hover:bg-slate-50"
               }`}
             >
@@ -145,8 +145,8 @@ export default function AgentDashboard() {
           <LoadingState message="Loading tickets..." />
         ) : (
           <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
-            <div className="min-w-[950px]">
-              <div className="grid grid-cols-[190px_220px_minmax(260px,1fr)_100px_120px] gap-3 px-5 py-3 border-b border-slate-100 text-[10px] font-bold text-slate-400 tracking-wide">
+            <div className="min-w-[720px]">
+              <div className="grid grid-cols-[170px_180px_minmax(220px,1fr)_90px_110px] gap-3 border-b border-slate-100 px-5 py-3 text-[10px] font-bold tracking-wide text-slate-400">
                 <span>Ticket</span>
                 <span>Customer</span>
                 <span>Subject</span>
@@ -162,7 +162,7 @@ export default function AgentDashboard() {
                     key={ticket._id}
                     type="button"
                     onClick={() => openTicket(ticket._id)}
-                    className="grid w-full grid-cols-[190px_220px_minmax(260px,1fr)_100px_120px] gap-3 border-b border-slate-50 px-5 py-3.5 text-left last:border-0 hover:bg-slate-50"
+                    className="grid w-full grid-cols-[170px_180px_minmax(220px,1fr)_90px_110px] gap-3 border-b border-slate-50 px-5 py-3.5 text-left last:border-0 hover:bg-slate-50"
                   >
                     <span className="whitespace-nowrap text-xs text-slate-400">
                       #{ticket._id}

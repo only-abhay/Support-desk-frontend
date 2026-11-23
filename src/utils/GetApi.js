@@ -146,6 +146,39 @@ const AssignTicket = async ({ ticketId, agentId }) => {
   return response.data;
 };
 
+const GetTicketByAgent = async({agentID}) =>{
+try {
+   const response = await axiosCat.get(
+    `/query/agent/${encodeURIComponent(agentID)}`,
+    { withCredentials: true },
+  );
+  return response
+} catch (error) {
+  console.log(error)
+}
+}
+const GetArticle = async ()=>{
+  try{
+    const response = await axiosCat.get("/article/get")
+  if(response.data.success){
+    return response
+  }
+  }catch(error){
+       return error
+  }
+}
+
+ export const DeleteById = async (id)=>{
+try {
+   if(id){
+     const response = await axiosCat.delete(`/article/delete/${encodeURIComponent(id)}`)
+     return response
+   }
+} catch (error) {
+  
+}
+}
+
 export {
   CurrentUser,
   getUserByEmail,
@@ -160,4 +193,6 @@ export {
   GetTicketMessages,
   SendTicketMessage,
   AssignTicket,
+  GetTicketByAgent,
+  GetArticle
 };

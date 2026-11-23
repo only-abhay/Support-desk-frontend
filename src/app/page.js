@@ -4,7 +4,7 @@ import Features from "@/components/landing/Features";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen overflow-x-hidden bg-white">
       <LandingNav />
       <Hero />
       <Features />

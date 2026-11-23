@@ -1,6 +1,7 @@
 import { BookOpen, Search } from "lucide-react";
 import { KB_SNIPPETS } from "@/lib/data";
 import TopBar from "@/components/layout/TopBar";
+import Article from "./Article";
 
 export default function CustomerKnowledgeBasePage() {
   return (
@@ -19,20 +20,7 @@ export default function CustomerKnowledgeBasePage() {
             />
           </div>
           <div className="grid gap-4 md:grid-cols-3">
-            {KB_SNIPPETS.map((article) => (
-              <article
-                key={article.title}
-                className="rounded-xl border border-slate-200 bg-white p-5"
-              >
-                <BookOpen className="mb-4 text-indigo-600" size={20} />
-                <h2 className="mb-2 font-semibold text-slate-900">
-                  {article.title}
-                </h2>
-                <p className="text-sm leading-6 text-slate-500">
-                  {article.answer}
-                </p>
-              </article>
-            ))}
+           <Article/>
           </div>
         </div>
       </main>

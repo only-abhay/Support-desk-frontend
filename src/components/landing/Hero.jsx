@@ -47,42 +47,42 @@ export default function Hero() {
         <div className="pointer-events-none absolute -right-36 bottom-[-260px] h-[620px] w-[620px] rounded-full bg-violet-500/20 blur-3xl" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#ffffff12_1px,transparent_1px)] bg-[size:28px_28px] opacity-30" />
 
-        <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16 lg:py-24">
-          <div className="max-w-2xl">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-2 text-xs font-semibold tracking-wide text-indigo-100">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_#34d399]" />
-              CUSTOMER SUPPORT, MADE CLEAR
+        <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 py-12 sm:px-8 sm:py-20 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16 lg:py-24">
+          <div className="max-w-full min-w-0 lg:max-w-2xl">
+            <div className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-2 text-[10px] font-semibold tracking-wide text-indigo-100 sm:text-xs">
+              <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_12px_#34d399]" />
+              <span className="break-words">CUSTOMER SUPPORT, MADE CLEAR</span>
             </div>
-            <h1 className="text-[2.75rem] font-semibold leading-[1.08] tracking-[-0.045em] sm:text-6xl lg:text-[4.25rem]">
+            <h1 className="max-w-full text-4xl font-semibold leading-[1.05] tracking-[-0.045em] text-white sm:text-5xl lg:text-[4.25rem]">
               Every request.
               <br />
               <span className="bg-gradient-to-r from-indigo-300 via-violet-200 to-sky-200 bg-clip-text text-transparent">
                 A better answer.
               </span>
             </h1>
-            <p className="mt-6 max-w-lg text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
+            <p className="mt-6 max-w-lg text-sm leading-7 text-slate-300 sm:text-base sm:leading-8 lg:text-lg">
               A calmer way to handle customer support. Raise a ticket, follow
               progress, and keep every conversation in one place.
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
               <Link
                 href="/login"
-                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-bold text-slate-900 shadow-lg shadow-indigo-950/20 transition hover:-translate-y-0.5 hover:bg-indigo-50"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-bold text-slate-900 shadow-lg shadow-indigo-950/20 transition hover:-translate-y-0.5 hover:bg-indigo-50 sm:w-auto"
               >
                 Get support
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <a
                 href="#features"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/20 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10 sm:w-auto"
               >
                 Explore the platform
                 <ArrowDown className="h-4 w-4" />
               </a>
             </div>
 
-            <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-medium text-slate-300">
+            <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-3 text-[11px] font-medium text-slate-300 sm:gap-x-6 sm:text-xs">
               <span className="inline-flex items-center gap-2">
                 <Check className="h-4 w-4 text-emerald-300" />
                 Keep ticket updates together
@@ -94,17 +94,17 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[600px]">
+          <div className="relative mx-auto w-full max-w-[600px] min-w-0">
             <div className="absolute -inset-5 rounded-[2rem] bg-gradient-to-br from-indigo-500/20 to-violet-400/10 blur-2xl" />
             <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-white shadow-2xl shadow-black/30">
-              <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4 sm:px-6">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+              <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 sm:px-6 sm:py-4">
+                <div className="flex min-w-0 items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
                     <Headset className="h-5 w-5" />
                   </div>
-                  <div>
-                    <p className="text-sm font-bold text-slate-900">Support inbox</p>
-                    <p className="mt-0.5 text-xs text-slate-500">
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-bold text-slate-900">Support inbox</p>
+                    <p className="mt-0.5 truncate text-[11px] text-slate-500 sm:text-xs">
                       A sample of your ticket workspace
                     </p>
                   </div>
@@ -112,13 +112,13 @@ export default function Hero() {
                 <button
                   type="button"
                   aria-label="Search sample tickets"
-                  className="rounded-lg border border-slate-200 p-2 text-slate-400"
+                  className="shrink-0 rounded-lg border border-slate-200 p-2 text-slate-400"
                 >
                   <Search className="h-4 w-4" />
                 </button>
               </div>
 
-              <div className="grid grid-cols-3 gap-3 border-b border-slate-100 bg-slate-50/80 px-5 py-4 sm:px-6">
+              <div className="grid grid-cols-1 gap-2 border-b border-slate-100 bg-slate-50/80 px-3 py-3 sm:grid-cols-3 sm:gap-3 sm:px-6 sm:py-4">
                 {[
                   { label: "Open", value: "12", tone: "text-amber-600" },
                   { label: "In progress", value: "08", tone: "text-indigo-600" },

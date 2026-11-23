@@ -73,18 +73,18 @@ export default function AdminTicketsPage() {
       <TopBar title="Tickets" subtitle="View and manage every support request" />
 
       <main className="flex-1 overflow-y-auto bg-slate-50 p-6 lg:p-8">
-        <div className="mb-6 grid gap-4 md:grid-cols-3">
-          <div className="rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-600 to-violet-600 p-4 text-white shadow-sm">
-            <p className="text-xs uppercase tracking-[0.2em] text-indigo-100">Open</p>
-            <p className="mt-3 text-3xl font-bold">{unresolvedTickets.length}</p>
+        <div className="mb-6 grid grid-cols-3 gap-1.5 sm:gap-2 md:gap-3">
+          <div className="rounded-lg border border-indigo-100 bg-gradient-to-br from-indigo-600 to-violet-600 p-2.5 text-white shadow-sm sm:p-3">
+            <p className="text-[10px] uppercase tracking-[0.12em] text-indigo-100">Open</p>
+            <p className="mt-1 text-base font-bold sm:text-[17px]">{unresolvedTickets.length}</p>
           </div>
-          <div className="rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-500 to-teal-600 p-4 text-white shadow-sm">
-            <p className="text-xs uppercase tracking-[0.2em] text-emerald-100">Resolved</p>
-            <p className="mt-3 text-3xl font-bold">{resolvedTickets.length}</p>
+          <div className="rounded-lg border border-emerald-100 bg-gradient-to-br from-emerald-500 to-teal-600 p-2.5 text-white shadow-sm sm:p-3">
+            <p className="text-[10px] uppercase tracking-[0.12em] text-emerald-100">Resolved</p>
+            <p className="mt-1 text-base font-bold sm:text-[17px]">{resolvedTickets.length}</p>
           </div>
-          <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-            <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Total</p>
-            <p className="mt-3 text-3xl font-bold text-slate-900">{tickets.length}</p>
+          <div className="rounded-lg border border-slate-200 bg-white p-2.5 shadow-sm sm:p-3">
+            <p className="text-[10px] uppercase tracking-[0.12em] text-slate-400">Total</p>
+            <p className="mt-1 text-base font-bold text-slate-900 sm:text-[17px]">{tickets.length}</p>
           </div>
         </div>
 
@@ -182,92 +182,68 @@ export default function AdminTicketsPage() {
       </main>
 
       {selectedTicket && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/45 px-4">
-          <div className="max-h-[92vh] w-full max-w-4xl overflow-hidden rounded-3xl bg-white shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-200 bg-gradient-to-r from-slate-900 to-indigo-900 px-6 py-4 text-white">
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.28em] text-indigo-200">Ticket details</p>
-                <h3 className="mt-1 text-xl font-bold">{selectedTicket.subject}</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/45 p-2 sm:p-4">
+          <section
+            role="dialog"
+            aria-modal="true"
+            className="flex max-h-[calc(100vh-0.75rem)] w-full max-w-3xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl"
+          >
+            <div className="flex shrink-0 items-center justify-between border-b border-slate-200 bg-gradient-to-r from-slate-900 to-indigo-900 px-4 py-4 text-white sm:px-6">
+              <div className="min-w-0">
+                <p className="text-[10px] uppercase tracking-[0.28em] text-indigo-200">
+                  Ticket details
+                </p>
+                <h3 className="mt-1 truncate text-lg font-bold sm:text-xl">
+                  {selectedTicket.subject}
+                </h3>
               </div>
 
               <button
                 type="button"
                 onClick={() => setSelectedTicket(null)}
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/95 text-slate-900 shadow-lg transition hover:scale-105 hover:bg-white"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/95 text-slate-900 shadow-lg transition hover:scale-105 hover:bg-white"
                 aria-label="Close ticket details"
               >
                 <X size={18} className="stroke-[2.5]" />
               </button>
             </div>
 
-            <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
-              <div className="border-b border-slate-200 p-5 lg:border-b-0 lg:border-r">
-                <div className="mb-4 flex items-center justify-between">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Customer</p>
-                    <p className="mt-1 font-semibold text-slate-800">
-                      {selectedTicket.userId?.name || "Customer"}
-                    </p>
-                  </div>
-                  <StatusPill status={selectedTicket.status} />
-                </div>
-
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                  <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Issue</p>
-                  <p className="mt-3 whitespace-pre-wrap leading-7 text-sm text-slate-700">
-                    {selectedTicket.issue || "No issue description provided."}
+            <div className="border-b border-slate-200 bg-slate-50 px-4 py-3 sm:px-6">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="min-w-0">
+                  <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Customer</p>
+                  <p className="mt-1 truncate font-semibold text-slate-800">
+                    {selectedTicket.userId?.name || "Customer"}
                   </p>
                 </div>
-
-                <div className="mt-5 h-[420px] overflow-hidden rounded-2xl border border-slate-200 bg-white">
-                  <TicketConversation
-                    key={selectedTicket._id}
-                    ticketId={selectedTicket._id}
-                    currentRole="admin"
-                    otherPartyName={selectedTicket.userId?.name || "Customer"}
-                    showComposer={true}
-                  />
+                <div className="flex items-center gap-2 self-start sm:self-auto">
+                  <StatusPill status={selectedTicket.status} />
+                  <span className="rounded-full bg-white px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500 ring-1 ring-slate-200">
+                    #{selectedTicket._id?.slice(-8)}
+                  </span>
                 </div>
               </div>
-
-              <aside className="bg-slate-50 p-5">
-                <div className="space-y-4">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Ticket ID</p>
-                    <p className="mt-1 font-semibold text-slate-800">#{selectedTicket._id?.slice(-8)}</p>
-                  </div>
-
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Category</p>
-                    <p className="mt-1 font-semibold text-slate-800">{selectedTicket.category}</p>
-                  </div>
-
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Priority</p>
-                    <p className="mt-1 font-semibold text-slate-800">{selectedTicket.priority || "Medium"}</p>
-                  </div>
-
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Assigned agent</p>
-                    <p className="mt-1 font-semibold text-slate-800">
-                      {selectedTicket.assignedTo
-                        ? `${selectedTicket.assignedTo.name} (${selectedTicket.assignedTo.email})`
-                        : "Unassigned"}
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Created</p>
-                    <p className="mt-1 font-semibold text-slate-800">
-                      {selectedTicket.createdAt
-                        ? new Date(selectedTicket.createdAt).toLocaleString()
-                        : "Not available"}
-                    </p>
-                  </div>
-                </div>
-              </aside>
             </div>
-          </div>
+
+            <div className="px-4 py-4 sm:px-6">
+              <div className="mb-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Issue</p>
+                <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-slate-700 sm:leading-7">
+                  {selectedTicket.issue || "No issue description provided."}
+                </p>
+              </div>
+
+              <div className="flex h-[55vh] min-h-[320px] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                <TicketConversation
+                  key={selectedTicket._id}
+                  ticketId={selectedTicket._id}
+                  currentRole="admin"
+                  otherPartyName={selectedTicket.userId?.name || "Customer"}
+                  showComposer={true}
+                />
+              </div>
+            </div>
+          </section>
         </div>
       )}
     </>

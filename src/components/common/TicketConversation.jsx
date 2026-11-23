@@ -100,14 +100,14 @@ export default function TicketConversation({
   }
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
+    <div className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden">
       <div className="mb-3 flex items-center justify-between">
         <h3 className="text-sm font-bold text-slate-800">Conversation</h3>
       </div>
 
       <div
         aria-live="polite"
-        className="min-h-36 flex-1 space-y-3 overflow-y-auto rounded-2xl bg-slate-50 p-4"
+        className="min-h-0 flex-1 space-y-3 overflow-y-auto rounded-2xl bg-slate-50 p-3 sm:p-4"
       >
         {messagesLoading ? (
           <p className="py-8 text-center text-sm text-slate-400">
@@ -126,7 +126,7 @@ export default function TicketConversation({
                 className={`flex ${isOwnMessage ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 ${
+                  className={`max-w-[85%] rounded-2xl px-3 py-2.5 sm:px-3.5 ${
                     isOwnMessage
                       ? "rounded-br-sm bg-indigo-600 text-white"
                       : "rounded-bl-sm bg-white text-slate-700 shadow-sm"
@@ -141,7 +141,7 @@ export default function TicketConversation({
                       ? "You"
                       : message.senderName || otherPartyName}
                   </p>
-                  <p className="whitespace-pre-wrap break-words text-sm">
+                  <p className="whitespace-pre-wrap break-words text-sm leading-6">
                     {message.message}
                   </p>
                   <time
@@ -169,31 +169,33 @@ export default function TicketConversation({
       )}
 
       {showComposer && (
-        <form onSubmit={handleSendMessage} className="mt-3 flex gap-2">
-          <textarea
-            aria-label="Write a reply"
-            value={messageDraft}
-            onChange={(event) => setMessageDraft(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" && !event.shiftKey) {
-                event.preventDefault();
-                event.currentTarget.form?.requestSubmit();
-              }
-            }}
-            maxLength={5000}
-            rows={2}
-            placeholder="Write a reply... (Enter to send)"
-            className="min-w-0 flex-1 resize-none rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
-          />
-          <button
-            type="submit"
-            disabled={sendingMessage || !messageDraft.trim()}
-            aria-label="Send reply"
-            className="self-end rounded-xl bg-indigo-600 p-3 text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <Send className="h-4 w-4" />
-          </button>
-        </form>
+        <div className="mt-3 shrink-0 rounded-t-xl border-t border-slate-200 bg-white pt-3">
+          <form onSubmit={handleSendMessage} className="flex gap-2">
+            <textarea
+              aria-label="Write a reply"
+              value={messageDraft}
+              onChange={(event) => setMessageDraft(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" && !event.shiftKey) {
+                  event.preventDefault();
+                  event.currentTarget.form?.requestSubmit();
+                }
+              }}
+              maxLength={5000}
+              rows={2}
+              placeholder="Write a reply... (Enter to send)"
+              className="min-w-0 max-h-32 flex-1 resize-none overflow-y-auto rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+            />
+            <button
+              type="submit"
+              disabled={sendingMessage || !messageDraft.trim()}
+              aria-label="Send reply"
+              className="self-end rounded-xl bg-indigo-600 p-3 text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <Send className="h-4 w-4" />
+            </button>
+          </form>
+        </div>
       )}
     </div>
   );

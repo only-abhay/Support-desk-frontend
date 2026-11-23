@@ -44,7 +44,7 @@ export const SEED_TICKETS = [
 export const KB_SNIPPETS = [
   {
     keywords: ["order", "delivery", "shipped", "delivered"],
-    title: "Delivery delays",
+    title: " ",
     answer:
       "Most orders arrive within 5-7 business days. If it has been longer than that, this gets automatically escalated to a human agent.",
   },

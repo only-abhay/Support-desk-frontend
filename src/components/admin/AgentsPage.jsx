@@ -12,6 +12,7 @@ import {
 import {
   AgentAll,
   AssignTicket,
+  GetTicketByAgent,
   TicketAll,
   UpdateAgentStatus,
 } from "@/utils/GetApi";
@@ -21,6 +22,7 @@ import TopBar from "@/components/layout/TopBar";
 
 export default function AdminAgentsPage() {
   const [agents, setAgents] = useState([]);
+  const [AssignTicketByAgent, setAssignTicketByAgent] = useState();
   const [loadingAgents, setLoadingAgents] = useState(true);
   const [agentsError, setAgentsError] = useState("");
   const [selectedAgent, setSelectedAgent] = useState(null);
@@ -45,19 +47,23 @@ export default function AdminAgentsPage() {
 
     loadAgents();
   }, []);
-
   async function openAssignmentDialog(agent) {
     setSelectedAgent(agent);
     setTickets([]);
     setTicketsError("");
     setLoadingTickets(true);
-
+    
     try {
+       const res = await GetTicketByAgent({ agentID :agent._id})
       const response = await TicketAll();
       if (!response.success) {
         throw new Error(response.message || "Unable to load tickets.");
       }
+       if (!res.data.success) {
+        throw new Error(res.data.message || "Unable to load agentTicket.");
+      }
       setTickets((response.tickets || []).filter((ticket) => !ticket.assignedTo));
+      setAssignTicketByAgent(res.data.assignticket)
     } catch (error) {
       console.error("Unable to load unassigned tickets", error);
       setTicketsError(error.message || "Unable to load tickets.");
@@ -71,6 +77,7 @@ export default function AdminAgentsPage() {
     setTicketsError("");
 
     try {
+       const res = await GetTicketByAgent({ agentID :selectedAgent._id})
       const response = await AssignTicket({
         ticketId,
         agentId: selectedAgent._id,
@@ -78,6 +85,10 @@ export default function AdminAgentsPage() {
       if (!response.success) {
         throw new Error(response.message || "Unable to assign ticket.");
       }
+       if (!res.data.success) {
+        throw new Error(res.data.message || "Unable to load agentTicket.");
+      }
+      setAssignTicketByAgent(res.data.assignticket)
       setTickets((currentTickets) =>
         currentTickets.filter((ticket) => ticket._id !== ticketId),
       );
@@ -95,7 +106,6 @@ export default function AdminAgentsPage() {
     const status = agent.status === "active" ? "inactive" : "active";
     setUpdatingAgentId(agent._id);
     setActionError("");
-
     try {
       const response = await UpdateAgentStatus({ agentId: agent._id, status });
       if (!response.success) {
@@ -138,26 +148,28 @@ export default function AdminAgentsPage() {
           </p>
         ) : (
           <>
-            <div className="mb-6 grid gap-4 sm:grid-cols-3">
+            <div className="mb-6 grid grid-cols-3 gap-1.5 sm:gap-2">
               {[
-                { label: "Total Agents", value: agents.length, color: "text-slate-900" },
+                { label: "Total", value: agents.length, color: "text-slate-900" },
                 {
-                  label: "Active Agents",
+                  label: "Active",
                   value: agents.filter((agent) => agent.status === "active").length,
                   color: "text-emerald-600",
                 },
                 {
-                  label: "Inactive Agents",
+                  label: "Inactive",
                   value: agents.filter((agent) => agent.status !== "active").length,
                   color: "text-slate-500",
                 },
               ].map((stat) => (
                 <div
                   key={stat.label}
-                  className="rounded-xl border border-slate-200 bg-white p-4"
+                  className="rounded-lg border border-slate-200 bg-white p-2.5 shadow-sm sm:p-3"
                 >
-                  <p className="mb-1 text-xs text-slate-500">{stat.label}</p>
-                  <p className={`text-2xl font-bold ${stat.color}`}>
+                  <p className="mb-0.5 text-[10px] font-medium uppercase tracking-[0.12em] text-slate-500">
+                    {stat.label}
+                  </p>
+                  <p className={`text-base font-bold sm:text-[17px] ${stat.color}`}>
                     {stat.value}
                   </p>
                 </div>
@@ -246,12 +258,14 @@ export default function AdminAgentsPage() {
           >
             <header className="flex items-start justify-between border-b border-slate-100 px-6 py-5">
               <div>
-                <h2
+                <div className=" flex justify-between">
+                  <h2
                   id="assign-ticket-title"
                   className="text-lg font-semibold text-slate-900"
                 >
-                  Assign a ticket
+                  Assigned ticket {AssignTicketByAgent}
                 </h2>
+                </div>
                 <p className="mt-1 text-sm text-slate-500">
                   Select an unassigned ticket for {selectedAgent.name}.
                 </p>
